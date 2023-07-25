@@ -1,6 +1,6 @@
 # Closed-Gravitational-Force-Simulation
 Hi there, this is a Gravitational Force simulation, applying the Universal Newton's Law for Gravity in python using pygame and math libraries.
-<img align="right" src="https://thumbs.gfycat.com/DimPowerlessBallpython-size_restricted.gif" width="180">
+<img align="right" src="https://thumbs.gfycat.com/DimPowerlessBallpython-size_restricted.gif" width="160">
 This project simply applies the equation F = G.m1.m2./d^2 
 and works with collisions with the well-known quantity of
 motion conservation. 
