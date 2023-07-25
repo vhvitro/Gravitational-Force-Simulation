@@ -21,11 +21,11 @@ laranja = (212,73,0)
 
 FONT = pygame.font.SysFont('comicsans', 16)
 
-G = 6.67428e-11
+G = 6.67428e-11 #gravitational constant
 
-e = 0.7 #coeficiente de restituição
+e = 0.7 #coeficiente de restituição/ restitution coefficient
 
-u = 0.8 #coeficiente de absorção
+u = 0.8 #coeficiente de absorção/ absorption coefficient
 
 novos_blocos0 = []
 
