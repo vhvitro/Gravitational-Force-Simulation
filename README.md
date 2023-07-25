@@ -5,6 +5,7 @@ and works with collisions with the well-known quantity of
 motion conservation. 
 Other features:
 > It uses a logic based on difference of masses between blocks in collision to deal with "absorbtion" features and pseudo black holes creation;
+
 > The list of blocks created when the program is started can be modified (at least for now) just directly in the code, it is definied between lines 199-205, blocks' traits are, in this order: self position on the x axis, self position on the y axis, color, mass, radius, initial velocity at the x axis, initial velocity at the y axis:
 ``` python
 class  Bloco:
