@@ -196,10 +196,10 @@ def main():
     run = True
     clock = pygame.time.Clock()
 
-    bloco1 = Bloco(0,0,amarelo,10**14,30,2,2)
-    bloco2 = Bloco(-600,-200,verde_lima,10**14,15,-3,-3)
-    bloco3 = Bloco(-500,200,laranja,10**9,10,-1,1)
-    bloco4 = Bloco(650,-300,ciano,10**9,10,-1,1)
+    bloco1 = Bloco(0,0,amarelo,10**14,30,0,0)
+    bloco2 = Bloco(-600,-200,verde_lima,10**13,20,-2,1)
+    bloco3 = Bloco(-500,200,laranja,10**9,10,-2,1)
+    bloco4 = Bloco(650,-300,ciano,10**9,10,-2,3)
     bloco5 = Bloco(-400,-30,vermelho_mercurio,10**9,10,0.3,0.5)
 
     blocos = [bloco1,bloco2,bloco3,bloco4,bloco5]
