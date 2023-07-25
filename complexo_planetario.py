@@ -135,18 +135,18 @@ def colisao(bloco,other):
         
 
         if distance<=distancia_critica:
-                if bloco.massa>=10**5*other.massa or other.massa>=bloco.massa*10**5:
-                    e=0
-                else:
-                    e=1
-                bloco.x_vel = (bloco.massa*xvel1 + other.massa*xvel2 - other.massa*vrelx*e)/(bloco.massa+other.massa) #para x
-                other.x_vel = vrelx*e-math.fabs(bloco.x_vel) #para x
+            if bloco.massa>=10**5*other.massa or other.massa>=bloco.massa*10**5:
+                e=0
+            else:
+                e=1
+            bloco.x_vel = (bloco.massa*xvel1 + other.massa*xvel2 - other.massa*vrelx*e)/(bloco.massa+other.massa) #para x
+            other.x_vel = vrelx*e-math.fabs(bloco.x_vel) #para x
 
-                bloco.y_vel = (bloco.massa*yvel1 + other.massa*yvel2 - other.massa*vrely*e)/(bloco.massa+other.massa) #para y
-                other.y_vel = vrely*e-math.fabs(bloco.y_vel) #para y
+            bloco.y_vel = (bloco.massa*yvel1 + other.massa*yvel2 - other.massa*vrely*e)/(bloco.massa+other.massa) #para y
+            other.y_vel = vrely*e-math.fabs(bloco.y_vel) #para y
             
 
-                return True
+            return True
         
 def atracao(bloco,other):
         distancia_critica = math.fabs(bloco.raio + other.raio)
