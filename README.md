@@ -2,7 +2,10 @@
 Hi there, this is a Gravitational Force simulation, applying the Universal Newton's Law for Gravity in python using pygame and math libraries.
 This project simply applies the equation F = G.m1.m2./d^2 
 and works with collisions with the well-known quantity of
-motion conservation. 
+motion conservation.
+
+This program has two different '.py' files, the '_closed' file close the working_world of the program to match the screen, the '_open' file just removes this feature.
+
 Other features:
 > It uses a logic based on difference of masses between blocks in collision to deal with "absorbtion" features and pseudo black holes creation;
 
