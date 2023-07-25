@@ -113,66 +113,66 @@ def consumir(bloco,other):
         
 
 def colisao(bloco,other):
-        distancia_critica = math.fabs(bloco.raio + other.raio)
-        distance_x = math.fabs(bloco.x - other.x)
-        distance_y = math.fabs(bloco.y - other.y)
-        distance = math.sqrt(distance_x**2 + distance_y**2)
-        if (bloco.x_vel<0 and other.x_vel<0) or (bloco.x_vel>0 and other.x_vel>0):
-            vrelx = bloco.x_vel + other.x_vel
-        else:
-            vrelx = bloco.x_vel - other.x_vel
+    distancia_critica = math.fabs(bloco.raio + other.raio)
+    distance_x = math.fabs(bloco.x - other.x)
+    distance_y = math.fabs(bloco.y - other.y)
+    distance = math.sqrt(distance_x**2 + distance_y**2)
+    if (bloco.x_vel<0 and other.x_vel<0) or (bloco.x_vel>0 and other.x_vel>0):
+        vrelx = bloco.x_vel + other.x_vel
+    else:
+        vrelx = bloco.x_vel - other.x_vel
 
-        if (bloco.y_vel<0 and other.y_vel<0) or (bloco.y_vel>0 and other.y_vel>0):
-            vrely = bloco.y_vel + other.y_vel
-        else:
-            vrely = bloco.y_vel - other.y_vel
+    if (bloco.y_vel<0 and other.y_vel<0) or (bloco.y_vel>0 and other.y_vel>0):
+        vrely = bloco.y_vel + other.y_vel
+    else:
+        vrely = bloco.y_vel - other.y_vel
         
-        xvel1 = bloco.x_vel
-        xvel2 = other.x_vel
+    xvel1 = bloco.x_vel
+    xvel2 = other.x_vel
 
-        yvel1 = bloco.y_vel
-        yvel2 = other.y_vel
+    yvel1 = bloco.y_vel
+    yvel2 = other.y_vel
         
 
-        if distance<=distancia_critica:
-            if bloco.massa>=10**5*other.massa or other.massa>=bloco.massa*10**5:
-                e=0
-            else:
-                e=1
-            bloco.x_vel = (bloco.massa*xvel1 + other.massa*xvel2 - other.massa*vrelx*e)/(bloco.massa+other.massa) #para x
-            other.x_vel = vrelx*e-math.fabs(bloco.x_vel) #para x
+    if distance<=distancia_critica:
+        if bloco.massa>=10**5*other.massa or other.massa>=bloco.massa*10**5:
+            e=0
+        else:
+            e=1
+        bloco.x_vel = (bloco.massa*xvel1 + other.massa*xvel2 - other.massa*vrelx*e)/(bloco.massa+other.massa) #para x
+        other.x_vel = vrelx*e-math.fabs(bloco.x_vel) #para x
 
-            bloco.y_vel = (bloco.massa*yvel1 + other.massa*yvel2 - other.massa*vrely*e)/(bloco.massa+other.massa) #para y
-            other.y_vel = vrely*e-math.fabs(bloco.y_vel) #para y
+        bloco.y_vel = (bloco.massa*yvel1 + other.massa*yvel2 - other.massa*vrely*e)/(bloco.massa+other.massa) #para y
+        other.y_vel = vrely*e-math.fabs(bloco.y_vel) #para y
             
 
-            return True
+        return True
         
 def atracao(bloco,other):
-        distancia_critica = math.fabs(bloco.raio + other.raio)
-        distance_x = math.fabs(bloco.x - other.x)
-        distance_y = math.fabs(bloco.y - other.y)
-        distance = math.sqrt(distance_x**2 + distance_y**2)
-        if distance <= distancia_critica:
-            F = 0
-            if other.massa>=10**10 and bloco.massa>=10**10:
-                other.existe = False
-                bloco.existe = False
-                create_object((bloco.x+other.x)/2,(bloco.y+other.y)/2,preto,bloco.massa+other.massa,(bloco.raio+other.raio)/2,0,0,novos_blocos0)
+    distancia_critica = math.fabs(bloco.raio + other.raio)
+    distance_x = math.fabs(bloco.x - other.x)
+    distance_y = math.fabs(bloco.y - other.y)
+    distance = math.sqrt(distance_x**2 + distance_y**2)
+    if distance <= distancia_critica:
+        F = 0
+        if other.massa>=10**10 and bloco.massa>=10**10:
+            other.existe = False
+            bloco.existe = False
+            create_object((bloco.x+other.x)/2,(bloco.y+other.y)/2,preto,bloco.massa+other.massa,(bloco.raio+other.raio)/2,0,0,novos_blocos0)
 
-            elif bloco.massa>10**3*other.massa:
-                if other.massa>=1000:
-                    consumir(bloco,other)
-                    create_object(other.x,other.y,other.cor,other.massa*(1-u),other.raio/(1+u),1.2*math.sqrt(G*bloco.massa/(bloco.raio+other.raio)),1.2*math.sqrt(G*bloco.massa/(bloco.raio+other.raio)),novos_blocos0)
-                else: 
-                    consumir(bloco,other)
+        elif bloco.massa>10**3*other.massa:
+            if other.massa>=1000:
+                consumir(bloco,other)
+                create_object(other.x,other.y,other.cor,other.massa*(1-u),other.raio/(1+u),1.2*math.sqrt(G*bloco.massa/(bloco.raio+other.raio)),1.2*math.sqrt(G*bloco.massa/(bloco.raio+other.raio)),novos_blocos0)
+            else: 
+                consumir(bloco,other)
                 
-            elif other.massa>bloco.massa*10**3:
-                if bloco.massa>=1000:
-                    consumir(other,bloco)
-                    create_object(bloco.x,bloco.y,bloco.cor,bloco.massa*(1-u),bloco.raio/(1+u),1.2*math.sqrt(G*other.massa/(bloco.raio+other.raio)),1.2*math.sqrt(G*other.massa/(bloco.raio+other.raio)),novos_blocos0)
-                else: 
-                    consumir(bloco,other)
+        elif other.massa>bloco.massa*10**3:
+            if bloco.massa>=1000:
+                consumir(other,bloco)
+                create_object(bloco.x,bloco.y,bloco.cor,bloco.massa*(1-u),bloco.raio/(1+u),1.2*math.sqrt(G*other.massa/(bloco.raio+other.raio)),1.2*math.sqrt(G*other.massa/(bloco.raio+other.raio)),novos_blocos0)
+            else: 
+                consumir(bloco,other)
             
 
         else:
