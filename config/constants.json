@@ -5,6 +5,11 @@
         "absorption_coefficient": 0.8,
         "collision_threshold": 1000,
         "mass_ratio_threshold": 1000,
-        "black_hole_mass": 1e10
+        "black_hole_mass": 1e10,
+        "astro_unit": 1
+    },
+    "simulation": {
+        "time_step_per_frame": 1,
+        "target_fps": 60
     }
 }

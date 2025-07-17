@@ -13,7 +13,7 @@ class ConfigLoader:
         config_path = self.config_dir / "constants.json"
         try:
             with open(config_path, 'r') as f:
-                data = json.load(f)
+                return json.load(f)
             return data['physics']
         except FileNotFoundError:
             raise FileNotFoundError(f"Configuration file not found: {config_path}")

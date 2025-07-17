@@ -2,9 +2,10 @@ import math
 from core.config_load import config
 
 # Load constants
-constants = config.load_constants()
+constants = config.load_constants()['physics']
 colors = config.load_colors()
 
+astro_unit = constants['astro_unit']
 G = constants['gravitational_constant']
 ABSORPTION_COEFF = constants['absorption_coefficient']
 BLACK_HOLE_MASS = constants['black_hole_mass']
@@ -33,8 +34,8 @@ def consume_body(consumer, consumed):
 def calculate_attraction(body1, body2):
     """Calculate gravitational attraction between two bodies"""
     critical_distance = abs(body1.radius + body2.radius)
-    distance_x = abs(body1.x - body2.x)
-    distance_y = abs(body1.y - body2.y)
+    distance_x = abs(body1.x - body2.x) * astro_unit
+    distance_y = abs(body1.y - body2.y) * astro_unit
     distance = math.sqrt(distance_x**2 + distance_y**2)
     
     if distance <= critical_distance:
