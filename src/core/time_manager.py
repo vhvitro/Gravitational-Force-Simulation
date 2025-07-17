@@ -52,3 +52,8 @@ class TimeManager:
         """Reset simulation time"""
         self.simulation_time = 0.0
         self.frame_count = 0
+
+    def rewind(self):
+        self.simulation_time -= self.time_step_per_frame
+        self.frame_count -=1
+        

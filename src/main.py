@@ -101,6 +101,7 @@ def main():
             for i, b in enumerate(bodies):
                 b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel = last_state[i]
                 b.orbit.pop()
+            time_manager.rewind()
 
         # Update and draw bodies
         for body in bodies[:]:  # Use slice to avoid modification during iteration
