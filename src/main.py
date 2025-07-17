@@ -62,9 +62,10 @@ def main():
     print(f'Target FPS: {target_fps}')
     
     # Main simulation loop
-    history = collections.deque(maxlen=1000)
+    history = collections.deque(maxlen=5000)
     paused = False
     running = True
+    states = 0
     while running:
         clock.tick(target_fps)  # Fixed FPS
         screen.fill(DARK_BLUE)
@@ -95,9 +96,11 @@ def main():
             #store states
             current_state = [(b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel) for b in bodies]
             history.append(current_state)
+            states+=1
         
         if rewinding and history:
             last_state = history.pop()
+            states-=1
             for i, b in enumerate(bodies):
                 b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel = last_state[i]
                 b.orbit.pop()
@@ -121,7 +124,7 @@ def main():
             renderer.draw_body(body)
 
         # Draw simulation info
-        renderer.draw_simulation_info(time_manager, collision_count)
+        renderer.draw_simulation_info(time_manager, collision_count, states)
         if rewinding:
             renderer.rewinding()
         elif paused:

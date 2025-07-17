@@ -88,7 +88,7 @@ class Renderer:
             rendered_text = self.font.render(text, 1, WHITE)
             self.screen.blit(rendered_text, (x + 20, y + i * 18))
     
-    def draw_simulation_info(self, time_manager, collision_count):
+    def draw_simulation_info(self, time_manager, collision_count, states):
         """Draw basic simulation information"""
         y_offset = 10
         
@@ -121,6 +121,12 @@ class Renderer:
         center_text = f"Screen center: ({WINDOW_WIDTH//2}, {WINDOW_HEIGHT//2})"
         center_surface = self.font.render(center_text, 1, WHITE)
         self.screen.blit(center_surface, (10, y_offset))
+        y_offset +=20
+
+        # States counter
+        states_text = f"Now in state: {states}"
+        states_surface = self.font.render(states_text, 1, WHITE)
+        self.screen.blit(states_surface, (10, y_offset))
 
     def rewinding(self):
         rewind_text = f"REWINDING SIMULATION"
