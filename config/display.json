@@ -1,0 +1,11 @@
+{
+    "window": {
+        "width": 1600,
+        "height": 1000,
+        "title": "Gravitational Force Simulation"
+    },
+    "font": {
+        "name": "comicsans",
+        "size": 16
+    }
+}
