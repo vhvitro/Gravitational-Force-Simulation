@@ -100,7 +100,7 @@ def calculate_attraction(body1, body2):
 
 def handle_collision(body1, body2):
     """Handle elastic collision between two bodies"""
-    critical_distance = abs(body1.radius + body2.radius)
+    critical_distance = abs(body1.radius + body2.radius)/SCALE
     distance_x = abs(body1.x - body2.x)
     distance_y = abs(body1.y - body2.y)
     distance = math.sqrt(distance_x**2 + distance_y**2)

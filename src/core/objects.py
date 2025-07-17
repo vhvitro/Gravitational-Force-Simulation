@@ -14,7 +14,8 @@ TIME_STEP = simulation_constants['time_step_per_frame']
 FPS = simulation_constants['target_fps']
 AU = constants['AU']
 SCALE = 200/AU
-MAX_ORBIT = math.sqrt(1/TIME_STEP) * 60**3
+FACTOR = FPS/20
+MAX_ORBIT = math.sqrt(1/TIME_STEP) * 60**3 * FACTOR
 
 # Display settings
 WINDOW_WIDTH = display_settings['window']['width']

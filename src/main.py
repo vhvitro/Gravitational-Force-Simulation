@@ -51,8 +51,7 @@ def main():
     bodies = [
         Body(0, 0, YELLOW, 1*SUN_MASS, 10, 0, 0),
         Body(-600/SCALE, -200/SCALE, LIME_GREEN, 1e-6*SUN_MASS, 5, 0, 10000),
-        Body(650/SCALE, -300/SCALE, CYAN, 2*SUN_MASS, 12, 0, 0),
-        Body(-400/SCALE, -30/SCALE, MERCURY_RED, 1E-3*SUN_MASS, 8, 300, 500)
+        Body(-400/SCALE, -30/SCALE, MERCURY_RED, 1E-3*SUN_MASS, 8, 3000, 7000)
     ]
     
     # Calculate total system mass
