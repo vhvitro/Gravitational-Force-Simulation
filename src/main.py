@@ -61,6 +61,7 @@ def main():
     print(f'Target FPS: {target_fps}')
     
     # Main simulation loop
+    paused = False
     running = True
     while running:
         clock.tick(target_fps)  # Fixed FPS
@@ -70,32 +71,38 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-
-        # Update time (one step per frame)
-        time_manager.update()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    paused = not paused
         
-        # Get the fixed time step
-        dt = time_manager.get_time_step()
+        if not paused:
+            # Update time (one step per frame)
+            time_manager.update()
+            
+            # Get the fixed time step
+            dt = time_manager.get_time_step()
 
-        # Add new bodies from physics interactions
-        if len(new_bodies_queue) >= 1:
-            bodies.extend(new_bodies_queue)
-            new_bodies_queue.clear()
+            # Add new bodies from physics interactions
+            if len(new_bodies_queue) >= 1:
+                bodies.extend(new_bodies_queue)
+                new_bodies_queue.clear()
 
         # Update and draw bodies
         for body in bodies[:]:  # Use slice to avoid modification during iteration
-            if not body.exists:
-                delete_body(body, bodies)
-            else:
-                body.update_position(bodies, dt)
-                renderer.draw_body(body)
-                
-                # Check collisions with other bodies
-                for other_body in bodies:
-                    if other_body == body:
-                        continue
-                    if handle_collision(body, other_body):
-                        collision_count += 1
+            if not paused:
+                if not body.exists:
+                    delete_body(body, bodies)
+                else:
+                    body.update_position(bodies, dt)
+
+                    # Check collisions with other bodies
+                    for other_body in bodies:
+                        if other_body == body:
+                            continue
+                        if handle_collision(body, other_body):
+                            collision_count += 1
+            
+            renderer.draw_body(body)
 
         # Draw simulation info
         renderer.draw_simulation_info(time_manager, collision_count)
