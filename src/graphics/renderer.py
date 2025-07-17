@@ -3,6 +3,7 @@ import math
 from core.config_load import config
 
 # Load configurations
+constants = config.load_constants()['physics']
 colors = config.load_colors()
 display_settings = config.load_display_settings()
 
@@ -11,6 +12,8 @@ WINDOW_WIDTH = display_settings['window']['width']
 WINDOW_HEIGHT = display_settings['window']['height']
 WHITE = tuple(colors['white'])
 YELLOW = tuple(colors['yellow'])
+AU = constants['AU']
+SCALE = 200/AU
 
 class Renderer:
     """Handles all drawing operations for the simulation"""
@@ -26,8 +29,8 @@ class Renderer:
         """Draw a celestial body with its orbit trail and information"""
         self.frame_count += 1
         
-        screen_x = body.x + WINDOW_WIDTH/2
-        screen_y = body.y + WINDOW_HEIGHT/2    
+        screen_x = body.x*SCALE + WINDOW_WIDTH/2
+        screen_y = body.y*SCALE + WINDOW_HEIGHT/2    
 
         # Debug: Print screen coordinates every 60 frames
         if self.frame_count % 60 == 0:
@@ -78,7 +81,7 @@ class Renderer:
         info_texts = [
             f"Vx={round(body.x_vel,2)}m/s",
             f"Vy={round(body.y_vel,2)}m/s", 
-            f"Pos=({round(body.x,1)}, {round(body.y,1)})"
+            f"Pos=({round(body.x*SCALE,1)}, {round(body.y*SCALE,1)})"
         ]
         
         for i, text in enumerate(info_texts):
@@ -119,6 +122,3 @@ class Renderer:
         center_surface = self.font.render(center_text, 1, WHITE)
         self.screen.blit(center_surface, (10, y_offset))
         
-        # Draw crosshair at screen center
-        pygame.draw.line(self.screen, WHITE, (WINDOW_WIDTH//2 - 20, WINDOW_HEIGHT//2), (WINDOW_WIDTH//2 + 20, WINDOW_HEIGHT//2), 2)
-        pygame.draw.line(self.screen, WHITE, (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 - 20), (WINDOW_WIDTH//2, WINDOW_HEIGHT//2 + 20), 2)

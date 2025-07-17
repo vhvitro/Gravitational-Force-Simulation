@@ -3,12 +3,18 @@ from core.config_load import config
 
 # Load configurations
 constants = config.load_constants()['physics']
+simulation_constants = config.load_constants()['simulation']
 colors = config.load_colors()
 display_settings = config.load_display_settings()
 
 # Constants from JSON
 G = constants['gravitational_constant']
 ABSORPTION_COEFF = constants['absorption_coefficient']
+TIME_STEP = simulation_constants['time_step_per_frame']
+FPS = simulation_constants['target_fps']
+AU = constants['AU']
+SCALE = 200/AU
+MAX_ORBIT = math.sqrt(1/TIME_STEP) * 60**3
 
 # Display settings
 WINDOW_WIDTH = display_settings['window']['width']
@@ -79,10 +85,10 @@ class Body:
             print(f"Body: pos=({self.x:.1f}, {self.y:.1f}), vel=({self.x_vel:.1f}, {self.y_vel:.1f}), acc=({self.ax:.6f}, {self.ay:.6f})")
 
         # Update orbit trail
-        self.orbit.append((self.x, self.y))
+        self.orbit.append((self.x*SCALE, self.y*SCALE))
         
         # Limit orbit trail length
-        if len(self.orbit) > 500:
+        if len(self.orbit) > MAX_ORBIT:
             self.orbit.pop(0)
 
     def get_speed(self):

@@ -14,6 +14,12 @@ def main():
     colors = config.load_colors()
     display_settings = config.load_display_settings()
     simulation_config = config.load_constants()['simulation']
+    constants = config.load_constants()['physics']
+
+    #Constants
+    AU = constants['AU']
+    SCALE = 200/AU
+    SUN_MASS = constants['sun_mass']
     
     # Setup display
     WINDOW_WIDTH = display_settings['window']['width']
@@ -43,11 +49,10 @@ def main():
     
     # Create initial celestial bodies (same as original but with time step)
     bodies = [
-        Body(0, 0, YELLOW, 10**14, 30, 0, 0),
-        Body(-600, -200, LIME_GREEN, 10**13, 20, -2, 1),
-        Body(-500, 200, ORANGE, 10**9, 10, -2, 1),
-        Body(650, -300, CYAN, 10**9, 10, -2, 3),
-        Body(-400, -30, MERCURY_RED, 10**9, 10, 0.3, 0.5)
+        Body(0, 0, YELLOW, 1*SUN_MASS, 10, 0, 0),
+        Body(-600/SCALE, -200/SCALE, LIME_GREEN, 1e-6*SUN_MASS, 5, 0, 10000),
+        Body(650/SCALE, -300/SCALE, CYAN, 2*SUN_MASS, 12, 0, 0),
+        Body(-400/SCALE, -30/SCALE, MERCURY_RED, 1E-3*SUN_MASS, 8, 300, 500)
     ]
     
     # Calculate total system mass
