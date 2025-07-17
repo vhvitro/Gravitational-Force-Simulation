@@ -1,6 +1,5 @@
 import math
-from .config_load import config
-from .objects import create_body, consume_body
+from core.config_load import config
 
 # Load constants
 constants = config.load_constants()
@@ -15,6 +14,21 @@ BLACK = tuple(colors['black'])
 
 # Global list for new bodies (equivalent to novos_blocos0)
 new_bodies_queue = []
+
+def create_body(x, y, color, mass, radius, x_vel, y_vel, body_list):
+    """Factory function to create a new celestial body - moved here to avoid circular import"""
+    from core.objects import Body
+    new_body = Body(x, y, color, mass, radius, x_vel, y_vel)
+    body_list.append(new_body)
+    return new_body
+
+def consume_body(consumer, consumed):
+    """Handle one body consuming another - moved here to avoid circular import"""
+    if consumed.mass < constants['collision_threshold']:
+        consumer.mass += consumed.mass
+    else:    
+        consumer.mass += ABSORPTION_COEFF * consumed.mass
+    consumed.exists = False
 
 def calculate_attraction(body1, body2):
     """Calculate gravitational attraction between two bodies"""
@@ -34,7 +48,7 @@ def calculate_attraction(body1, body2):
             merged_mass = body1.mass + body2.mass
             merged_radius = (body1.radius + body2.radius) / 2
             create_body(merged_x, merged_y, BLACK, merged_mass, 
-                                merged_radius, 0, 0, new_bodies_queue)
+                       merged_radius, 0, 0, new_bodies_queue)
 
         elif body1.mass > MASS_RATIO_THRESHOLD * body2.mass:
             # body1 consumes body2
@@ -43,9 +57,9 @@ def calculate_attraction(body1, body2):
                 # Create debris
                 escape_velocity = 1.2 * math.sqrt(G * body1.mass / (body1.radius + body2.radius))
                 create_body(body2.x, body2.y, body2.color, 
-                                    body2.mass * (1 - ABSORPTION_COEFF),
-                                    body2.radius / (1 + ABSORPTION_COEFF),
-                                    escape_velocity, escape_velocity, new_bodies_queue)
+                           body2.mass * (1 - ABSORPTION_COEFF),
+                           body2.radius / (1 + ABSORPTION_COEFF),
+                           escape_velocity, escape_velocity, new_bodies_queue)
             else: 
                 consume_body(body1, body2)
                 
@@ -55,9 +69,9 @@ def calculate_attraction(body1, body2):
                 consume_body(body2, body1)
                 escape_velocity = 1.2 * math.sqrt(G * body2.mass / (body1.radius + body2.radius))
                 create_body(body1.x, body1.y, body1.color,
-                                    body1.mass * (1 - ABSORPTION_COEFF),
-                                    body1.radius / (1 + ABSORPTION_COEFF),
-                                    escape_velocity, escape_velocity, new_bodies_queue)
+                           body1.mass * (1 - ABSORPTION_COEFF),
+                           body1.radius / (1 + ABSORPTION_COEFF),
+                           escape_velocity, escape_velocity, new_bodies_queue)
             else: 
                 consume_body(body2, body1)
         

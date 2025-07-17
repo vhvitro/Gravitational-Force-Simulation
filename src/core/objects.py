@@ -1,6 +1,5 @@
 import math
-from .physics import calculate_attraction
-from .config_load import config
+from core.config_load import config
 
 # Load configurations
 constants = config.load_constants()
@@ -35,6 +34,9 @@ class Body:
         self.ay = 0
 
     def update_position(self, bodies):
+        # Import here to avoid circular import
+        from core.physics import calculate_attraction
+        
         total_fx = total_fy = 0
         for body in bodies:
             if body == self:
@@ -55,21 +57,7 @@ class Body:
 
         self.orbit.append((self.x, self.y))
 
-def create_body(x, y, color, mass, radius, x_vel, y_vel, body_list):
-    """Factory function to create a new celestial body"""
-    new_body = Body(x, y, color, mass, radius, x_vel, y_vel)
-    body_list.append(new_body)
-    return new_body
-
 def delete_body(body, body_list):
     """Remove a body from the simulation"""
     if body in body_list:
         body_list.remove(body)
-
-def consume_body(consumer, consumed):
-    """Handle one body consuming another"""
-    if consumed.mass < constants['collision_threshold']:
-        consumer.mass += consumed.mass
-    else:    
-        consumer.mass += ABSORPTION_COEFF * consumed.mass
-    consumed.exists = False

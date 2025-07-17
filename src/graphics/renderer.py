@@ -1,6 +1,6 @@
 import pygame
 import math
-from ..core.config_load import config
+from core.config_load import config
 
 # Load configurations
 colors = config.load_colors()
