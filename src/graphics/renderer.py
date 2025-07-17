@@ -121,4 +121,14 @@ class Renderer:
         center_text = f"Screen center: ({WINDOW_WIDTH//2}, {WINDOW_HEIGHT//2})"
         center_surface = self.font.render(center_text, 1, WHITE)
         self.screen.blit(center_surface, (10, y_offset))
+
+    def rewinding(self):
+        rewind_text = f"REWINDING SIMULATION"
+        rewind_surface = self.font.render(rewind_text, 1, WHITE)
+        self.screen.blit(rewind_surface, (WINDOW_WIDTH - 200, 20))
+    
+    def paused(self):
+        pause_text = f"SIMULATION PAUSED"
+        pause_surface = self.font.render(pause_text, 1, WHITE)
+        self.screen.blit(pause_surface, (WINDOW_WIDTH - 200, 20))
         

@@ -1,4 +1,5 @@
 import pygame
+import collections
 from core.config_load import config
 from core.objects import Body, delete_body
 from core.physics import handle_collision, new_bodies_queue
@@ -61,6 +62,7 @@ def main():
     print(f'Target FPS: {target_fps}')
     
     # Main simulation loop
+    history = collections.deque(maxlen=1000)
     paused = False
     running = True
     while running:
@@ -74,8 +76,11 @@ def main():
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     paused = not paused
-        
-        if not paused:
+
+        keys = pygame.key.get_pressed()
+        rewinding = keys[pygame.K_LEFT] and paused
+
+        if not paused and not rewinding:
             # Update time (one step per frame)
             time_manager.update()
             
@@ -86,10 +91,20 @@ def main():
             if len(new_bodies_queue) >= 1:
                 bodies.extend(new_bodies_queue)
                 new_bodies_queue.clear()
+            
+            #store states
+            current_state = [(b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel) for b in bodies]
+            history.append(current_state)
+        
+        if rewinding and history:
+            last_state = history.pop()
+            for i, b in enumerate(bodies):
+                b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel = last_state[i]
+                b.orbit.pop()
 
         # Update and draw bodies
         for body in bodies[:]:  # Use slice to avoid modification during iteration
-            if not paused:
+            if not paused and not rewinding:
                 if not body.exists:
                     delete_body(body, bodies)
                 else:
@@ -106,7 +121,11 @@ def main():
 
         # Draw simulation info
         renderer.draw_simulation_info(time_manager, collision_count)
-        
+        if rewinding:
+            renderer.rewinding()
+        elif paused:
+            renderer.paused()
+
         pygame.display.update()
 
     # Cleanup
