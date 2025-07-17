@@ -122,7 +122,7 @@ def handle_collision(body1, body2):
         yvel1, yvel2 = body1.y_vel, body2.y_vel
         
         # Determine restitution coefficient based on mass ratio
-        if body1.mass >= 10**5 * body2.mass or body2.mass >= body1.mass * 10**5:
+        if body1.mass >= 10 * body2.mass or body2.mass >= body1.mass * 10:
             e = 0  # Perfectly inelastic
         else:
             e = 1  # Perfectly elastic

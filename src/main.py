@@ -1,7 +1,7 @@
 import pygame
 import collections
 from core.config_load import config
-from core.objects import Body, delete_body
+from core.objects import Body, delete_body, create_bodies_list
 from core.physics import handle_collision, new_bodies_queue
 from core.time_manager import TimeManager
 from graphics.renderer import Renderer
@@ -49,11 +49,7 @@ def main():
     collision_count = 0
     
     # Create initial celestial bodies (same as original but with time step)
-    bodies = [
-        Body(0, 0, YELLOW, 1*SUN_MASS, 10, 0, 0),
-        Body(-600/SCALE, -200/SCALE, LIME_GREEN, 1e-6*SUN_MASS, 5, 0, 10000),
-        Body(-400/SCALE, -30/SCALE, MERCURY_RED, 1E-3*SUN_MASS, 8, 3000, 7000)
-    ]
+    bodies = create_bodies_list()
     
     # Calculate total system mass
     total_mass = sum(body.mass for body in bodies)

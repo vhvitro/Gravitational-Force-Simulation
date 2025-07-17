@@ -41,6 +41,16 @@ class ConfigLoader:
             raise FileNotFoundError(f"Configuration file not found: {config_path}")
         except json.JSONDecodeError as e:
             raise ValueError(f"Invalid JSON in {config_path}: {e}")
-
+    def load_bodies(self):
+        """Load initial bodies configuration from JSON file"""
+        config_path = self.config_dir / "bodies.json"
+        try:
+            with open(config_path, 'r') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Configuration file not found: {config_path}")
+        except json.JSONDecodeError as e:
+            raise ValueError(f"Invalid JSON in {config_path}: {e}")
+        
 # Create a global instance for easy access
 config = ConfigLoader()

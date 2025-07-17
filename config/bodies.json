@@ -1,0 +1,46 @@
+{
+    "initial_bodies": [
+        {
+            "position": {
+                "x": 0,
+                "y": 0
+            },
+            "color": "yellow",
+            "mass_multiplier": 15,
+            "mass_unit": "sun_mass",
+            "radius": 10,
+            "velocity": {
+                "x": 0,
+                "y": 0
+            }
+        },
+        {
+            "position": {
+                "x_au": -600,
+                "y_au": -200
+            },
+            "color": "lime_green",
+            "mass_multiplier": 1e-6,
+            "mass_unit": "sun_mass",
+            "radius": 5,
+            "velocity": {
+                "x": 0,
+                "y": 10000
+            }
+        },
+        {
+            "position": {
+                "x_au": -400,
+                "y_au": -30
+            },
+            "color": "mercury_red",
+            "mass_multiplier": 1e-3,
+            "mass_unit": "sun_mass",
+            "radius": 8,
+            "velocity": {
+                "x": 3000,
+                "y": 7000
+            }
+        }
+    ]
+}

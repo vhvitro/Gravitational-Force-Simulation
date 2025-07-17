@@ -100,3 +100,56 @@ def delete_body(body, body_list):
     """Remove a body from the simulation"""
     if body in body_list:
         body_list.remove(body)
+
+def create_bodies_list():
+    """Create initial bodies from JSON configuration"""
+    # Load configurations
+    bodies_config = config.load_bodies()
+    colors = config.load_colors()
+    constants = config.load_constants()['physics']
+    
+    # Constants
+    AU = constants['AU']
+    SCALE = 200 / AU
+    SUN_MASS = constants['sun_mass']
+    
+    bodies = []
+    
+    for body_config in bodies_config['initial_bodies']:
+        # Get color tuple
+        color_name = body_config['color']
+        color = tuple(colors[color_name])
+        
+        # Calculate position
+        if 'x_au' in body_config['position'] and 'y_au' in body_config['position']:
+            # Position specified in AU
+            x = body_config['position']['x_au'] / SCALE
+            y = body_config['position']['y_au'] / SCALE
+        else:
+            # Position specified in meters
+            x = body_config['position']['x']
+            y = body_config['position']['y']
+        
+        # Calculate mass
+        mass_unit = body_config['mass_unit']
+        mass_multiplier = body_config['mass_multiplier']
+        
+        if mass_unit == 'sun_mass':
+            mass = mass_multiplier * SUN_MASS
+        elif mass_unit == 'kg':
+            mass = mass_multiplier
+        else:
+            raise ValueError(f"Unknown mass unit: {mass_unit}")
+        
+        # Get other properties
+        radius = body_config['radius']
+        x_vel = body_config['velocity']['x']
+        y_vel = body_config['velocity']['y']
+        
+        # Create body
+        body = Body(x, y, color, mass, radius, x_vel, y_vel)
+        bodies.append(body)
+        
+        print(f"Created body {color}: mass={mass:.2e} kg, pos=({x/AU:.4f}, {y/AU:.4f}) AU")
+    
+    return bodies
