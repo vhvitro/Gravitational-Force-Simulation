@@ -1,4 +1,4 @@
-# Gravitational-Force-Simulation <img align="right" src="https://thumbs.gfycat.com/DimPowerlessBallpython-size_restricted.gif" width="100">
+# Gravitational-Force-Simulation
 
 A gravitational force simulation applying Newton's Universal Law of Gravitation in Python using pygame. This project applies the equation **F = G·m₁·m₂/d²** with additional simple models for body interactions.
 

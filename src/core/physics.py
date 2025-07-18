@@ -14,7 +14,7 @@ SCALE = 200/AU
 
 BLACK = tuple(colors['black'])
 
-# Global list for new bodies (equivalent to novos_blocos0)
+# Global list for new bodies
 new_bodies_queue = []
 
 def create_body(x, y, color, mass, radius, x_vel, y_vel, body_list):
@@ -34,7 +34,7 @@ def consume_body(consumer, consumed):
         consumer.mass += ABSORPTION_COEFF * consumed.mass
     consumed.exists = False
 
-def handle_collision(body1, body2):
+def handle_collision(body1, body2, theta):
     # Calculate relative velocities
     if (body1.x_vel < 0 and body2.x_vel < 0) or (body1.x_vel > 0 and body2.x_vel > 0):
         vrel_x = body1.x_vel + body2.x_vel
@@ -91,8 +91,8 @@ def handle_collision(body1, body2):
                            escape_velocity, escape_velocity, new_bodies_queue)
             else: 
                 consume_body(body2, body1)
+                
     else:
-        print("Elastic collision")
         e = 1  # Perfectly elastic
         # Apply classical collision physics
         body1.x_vel = (body1.mass * xvel1 + body2.mass * xvel2 - body2.mass * vrel_x * e) / (body1.mass + body2.mass)
@@ -100,26 +100,29 @@ def handle_collision(body1, body2):
 
         body1.y_vel = (body1.mass * yvel1 + body2.mass * yvel2 - body2.mass * vrel_y * e) / (body1.mass + body2.mass)
         body2.y_vel = vrel_y * e - abs(body1.y_vel)
+        print(f"Elastic collision.\n Velocities before: {(xvel1, yvel1)} and {(xvel2, yvel2)}; \n Velocities after: {(body1.x_vel, body1.y_vel)} and {(body2.x_vel, body2.y_vel)}")
+        
 
 def calculate_attraction(body1, body2):
     """Calculate gravitational attraction between two bodies"""
     critical_distance = (body1.radius + body2.radius) / SCALE
     distance_x = abs(body1.x - body2.x)
     distance_y = abs(body1.y - body2.y)
+    theta = math.atan2(distance_y, distance_x)
     distance = math.sqrt(distance_x**2 + distance_y**2)
     
-    if distance <= critical_distance:
+    if distance <= critical_distance and (body1.steps_collision>10 or body2.steps_collision>10):
         print("Collision detected")
         # Handle collision/merging
-        handle_collision(body1, body2)
-        
+        handle_collision(body1, body2, theta)
+        body1.steps_collision=0
+        body2.steps_collision=0
         # Return zero forces for collision cases
         return 0, 0
     
     else:
         # Calculate gravitational force
         F = G * body1.mass * body2.mass / distance**2
-        theta = math.atan2(distance_y, distance_x)
 
         # Handle force direction components
         if body1.x < body2.x:
@@ -131,5 +134,8 @@ def calculate_attraction(body1, body2):
             F_y = math.sin(theta) * F
         else:
             F_y = math.sin(theta) * -F 
-            
+        
+        body1.steps_collision+=1
+        body2.steps_collision+=1
+
         return F_x, F_y

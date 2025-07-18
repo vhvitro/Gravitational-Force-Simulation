@@ -4,7 +4,7 @@
         "restitution_coefficient": 0.7,
         "absorption_coefficient": 0.8,
         "collision_threshold": 1e10,
-        "mass_ratio_threshold": 10,
+        "mass_ratio_threshold": 1e1,
         "black_hole_mass": 1e30,
         "sun_mass": 1.989e30,
         "AU": 1.496e11

@@ -1,87 +1,48 @@
 {
     "initial_bodies": [
         {
+            "name": "Body 1",
             "position": {
-                "x": 0,
-                "y": 0
+                "x_au": -150,
+                "y_au": 0
             },
             "color": "yellow",
-            "mass_multiplier": 1,
+            "mass_multiplier": 0.8,
             "mass_unit": "sun_mass",
-            "radius": 30,
+            "radius": 25,
             "velocity": {
-                "x": 0,
-                "y": 0
+                "x": 8000,
+                "y": 10000
             }
         },
         {
+            "name": "Body 2",
             "position": {
-                "x_au": -600,
-                "y_au": -200
+                "x_au": 150,
+                "y_au": 0
             },
-            "color": "lime_green",
-            "mass_multiplier": 1e-2,
+            "color": "orange",
+            "mass_multiplier": 0.8,
             "mass_unit": "sun_mass",
-            "radius": 10,
+            "radius": 25,
             "velocity": {
-                "x": 20000,
-                "y": 0
+                "x": -7000,
+                "y": -16000
             }
         },
         {
-            "position": {
-                "x_au": 600,
-                "y_au": 200
-            },
-            "color": "lime_green",
-            "mass_multiplier": 1e-2,
-            "mass_unit": "sun_mass",
-            "radius": 10,
-            "velocity": {
-                "x": -20000,
-                "y": 0
-            }
-        },
-        {
-            "position": {
-                "x_au": -600,
-                "y_au": 200
-            },
-            "color": "lime_green",
-            "mass_multiplier": 1e-2,
-            "mass_unit": "sun_mass",
-            "radius": 10,
-            "velocity": {
-                "x": 0,
-                "y": 20000
-            }
-        },
-        {
-            "position": {
-                "x_au": 600,
-                "y_au": -200
-            },
-            "color": "lime_green",
-            "mass_multiplier": 1e-2,
-            "mass_unit": "sun_mass",
-            "radius": 10,
-            "velocity": {
-                "x": 0,
-                "y": -20000
-            }
-        },
-        {
+            "name": "Body 3",
             "position": {
                 "x_au": 0,
-                "y_au": -300
+                "y_au": 200
             },
-            "color": "lime_green",
-            "mass_multiplier": 1e-2,
+            "color": "mercury_red",
+            "mass_multiplier": 0.7,
             "mass_unit": "sun_mass",
-            "radius": 10,
+            "radius": 22,
             "velocity": {
-                "x": 0,
-                "y": 0
+                "x": 15000,
+                "y": -5000
             }
         }
     ]

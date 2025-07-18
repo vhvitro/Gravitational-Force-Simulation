@@ -39,6 +39,7 @@ class Body:
         self.y_vel = y_vel  # m/s
         self.ax = 0  # m/s²
         self.ay = 0  # m/s²
+        self.steps_collision = 0
         
         # Orbit trail management
         self.orbit_update_counter = 0

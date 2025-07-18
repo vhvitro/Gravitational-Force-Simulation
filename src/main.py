@@ -15,13 +15,7 @@ def main():
     colors = config.load_colors()
     display_settings = config.load_display_settings()
     simulation_config = config.load_constants()['simulation']
-    constants = config.load_constants()['physics']
 
-    #Constants
-    AU = constants['AU']
-    SCALE = 200/AU
-    SUN_MASS = constants['sun_mass']
-    
     # Setup display
     WINDOW_WIDTH = display_settings['window']['width']
     WINDOW_HEIGHT = display_settings['window']['height']
@@ -37,11 +31,6 @@ def main():
     
     # Colors
     DARK_BLUE = tuple(colors['dark_blue'])
-    YELLOW = tuple(colors['yellow'])
-    LIME_GREEN = tuple(colors['lime_green'])
-    ORANGE = tuple(colors['orange'])
-    CYAN = tuple(colors['cyan'])
-    MERCURY_RED = tuple(colors['mercury_red'])
     
     # Initialize simulation
     target_fps = simulation_config['target_fps']
@@ -109,13 +98,6 @@ def main():
                     delete_body(body, bodies)
                 else:
                     body.update_position(bodies, dt)
-
-                    # Check collisions with other bodies
-                    """for other_body in bodies:
-                        if other_body == body:
-                            continue
-                        if handle_collision(body, other_body):
-                            collision_count += 1"""""
             
             renderer.draw_body(body)
 
