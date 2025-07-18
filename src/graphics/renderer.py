@@ -32,10 +32,6 @@ class Renderer:
         screen_x = body.x*SCALE + WINDOW_WIDTH/2
         screen_y = body.y*SCALE + WINDOW_HEIGHT/2    
 
-        # Debug: Print screen coordinates every 60 frames
-        if self.frame_count % 60 == 0:
-            print(f"Drawing body at screen coords: ({screen_x:.1f}, {screen_y:.1f}), world coords: ({body.x:.1f}, {body.y:.1f})")
-
         # Check if body is visible on screen
         if (screen_x < -100 or screen_x > WINDOW_WIDTH + 100 or 
             screen_y < -100 or screen_y > WINDOW_HEIGHT + 100):

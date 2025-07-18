@@ -2,7 +2,7 @@ import pygame
 import collections
 from core.config_load import config
 from core.objects import Body, delete_body, create_bodies_list
-from core.physics import handle_collision, new_bodies_queue
+from core.physics import new_bodies_queue
 from core.time_manager import TimeManager
 from graphics.renderer import Renderer
 
@@ -111,11 +111,11 @@ def main():
                     body.update_position(bodies, dt)
 
                     # Check collisions with other bodies
-                    for other_body in bodies:
+                    """for other_body in bodies:
                         if other_body == body:
                             continue
                         if handle_collision(body, other_body):
-                            collision_count += 1
+                            collision_count += 1"""""
             
             renderer.draw_body(body)
 

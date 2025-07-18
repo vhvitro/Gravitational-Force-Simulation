@@ -6,9 +6,9 @@
                 "y": 0
             },
             "color": "yellow",
-            "mass_multiplier": 15,
+            "mass_multiplier": 1,
             "mass_unit": "sun_mass",
-            "radius": 10,
+            "radius": 30,
             "velocity": {
                 "x": 0,
                 "y": 0
@@ -20,26 +20,68 @@
                 "y_au": -200
             },
             "color": "lime_green",
-            "mass_multiplier": 1e-6,
+            "mass_multiplier": 1e-2,
             "mass_unit": "sun_mass",
-            "radius": 5,
+            "radius": 10,
             "velocity": {
-                "x": 0,
-                "y": 10000
+                "x": 20000,
+                "y": 0
             }
         },
         {
             "position": {
-                "x_au": -400,
-                "y_au": -30
+                "x_au": 600,
+                "y_au": 200
             },
-            "color": "mercury_red",
-            "mass_multiplier": 1e-3,
+            "color": "lime_green",
+            "mass_multiplier": 1e-2,
             "mass_unit": "sun_mass",
-            "radius": 8,
+            "radius": 10,
             "velocity": {
-                "x": 3000,
-                "y": 7000
+                "x": -20000,
+                "y": 0
+            }
+        },
+        {
+            "position": {
+                "x_au": -600,
+                "y_au": 200
+            },
+            "color": "lime_green",
+            "mass_multiplier": 1e-2,
+            "mass_unit": "sun_mass",
+            "radius": 10,
+            "velocity": {
+                "x": 0,
+                "y": 20000
+            }
+        },
+        {
+            "position": {
+                "x_au": 600,
+                "y_au": -200
+            },
+            "color": "lime_green",
+            "mass_multiplier": 1e-2,
+            "mass_unit": "sun_mass",
+            "radius": 10,
+            "velocity": {
+                "x": 0,
+                "y": -20000
+            }
+        },
+        {
+            "position": {
+                "x_au": 0,
+                "y_au": -300
+            },
+            "color": "lime_green",
+            "mass_multiplier": 1e-2,
+            "mass_unit": "sun_mass",
+            "radius": 10,
+            "velocity": {
+                "x": 0,
+                "y": 0
             }
         }
     ]
