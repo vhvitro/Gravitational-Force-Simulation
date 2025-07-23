@@ -1,48 +1,93 @@
 {
     "initial_bodies": [
         {
-            "name": "Body 1",
+            "name": "Central Star",
             "position": {
-                "x_au": -150,
-                "y_au": 0
+                "x": 0,
+                "y": 0
             },
             "color": "yellow",
-            "mass_multiplier": 0.8,
+            "mass_multiplier": 1.0,
             "mass_unit": "sun_mass",
-            "radius": 25,
+            "radius": 30,
             "velocity": {
-                "x": 8000,
-                "y": 10000
+                "x": 0,
+                "y": 0
             }
         },
         {
-            "name": "Body 2",
+            "name": "Hot Jupiter",
+            "position": {
+                "x_au": 80,
+                "y_au": 0
+            },
+            "color": "orange",
+            "mass_multiplier": 1e-3,
+            "mass_unit": "sun_mass",
+            "radius": 12,
+            "velocity": {
+                "x": 0,
+                "y": 55000
+            }
+        },
+        {
+            "name": "Rocky Planet 1",
             "position": {
                 "x_au": 150,
                 "y_au": 0
             },
-            "color": "orange",
-            "mass_multiplier": 0.8,
+            "color": "mercury_red",
+            "mass_multiplier": 2e-6,
             "mass_unit": "sun_mass",
-            "radius": 25,
+            "radius": 6,
             "velocity": {
-                "x": -7000,
-                "y": -16000
+                "x": 0,
+                "y": 40000
             }
         },
         {
-            "name": "Body 3",
+            "name": "Earth-like Planet",
             "position": {
-                "x_au": 0,
-                "y_au": 200
+                "x_au": 220,
+                "y_au": 0
             },
-            "color": "mercury_red",
-            "mass_multiplier": 0.7,
+            "color": "cyan",
+            "mass_multiplier": 3e-6,
             "mass_unit": "sun_mass",
-            "radius": 22,
+            "radius": 8,
             "velocity": {
-                "x": 15000,
-                "y": -5000
+                "x": 0,
+                "y": 28000
+            }
+        },
+        {
+            "name": "Gas Giant",
+            "position": {
+                "x_au": 350,
+                "y_au": 0
+            },
+            "color": "neptune_blue",
+            "mass_multiplier": 5e-4,
+            "mass_unit": "sun_mass",
+            "radius": 18,
+            "velocity": {
+                "x": 0,
+                "y": 22000
+            }
+        },
+        {
+            "name": "Asteroid Alpha",
+            "position": {
+                "x_au": 280,
+                "y_au": 80
+            },
+            "color": "bronze",
+            "mass_multiplier": 1e-9,
+            "mass_unit": "sun_mass",
+            "radius": 3,
+            "velocity": {
+                "x": -10000,
+                "y": 25000
             }
         }
     ]
