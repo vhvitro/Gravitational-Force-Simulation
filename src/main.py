@@ -1,0 +1,123 @@
+import pygame
+import collections
+from core.config_load import config
+from core.objects import Body, delete_body, create_bodies_list
+from core.physics import new_bodies_queue
+from core.time_manager import TimeManager
+from graphics.renderer import Renderer
+
+def main():
+    """Main simulation loop with fixed time step"""
+    # Initialize Pygame
+    pygame.init()
+    
+    # Load configurations
+    colors = config.load_colors()
+    display_settings = config.load_display_settings()
+    simulation_config = config.load_constants()['simulation']
+
+    # Setup display
+    WINDOW_WIDTH = display_settings['window']['width']
+    WINDOW_HEIGHT = display_settings['window']['height']
+    screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+    pygame.display.set_caption(display_settings['window']['title'])
+    
+    # Setup font and renderer
+    font = pygame.font.SysFont(display_settings['font']['name'], display_settings['font']['size'])
+    renderer = Renderer(screen, font)
+    
+    # Initialize time manager
+    time_manager = TimeManager()
+    
+    # Colors
+    DARK_BLUE = tuple(colors['dark_blue'])
+    
+    # Initialize simulation
+    target_fps = simulation_config['target_fps']
+    clock = pygame.time.Clock()
+    collision_count = 0
+    
+    # Create initial celestial bodies (same as original but with time step)
+    bodies = create_bodies_list()
+    
+    # Calculate total system mass
+    total_mass = sum(body.mass for body in bodies)
+    print(f'System has total mass of {total_mass}')
+    print(f'Time step: {time_manager.time_step_per_frame/3600:.1f} hours per frame')
+    print(f'Target FPS: {target_fps}')
+    
+    # Main simulation loop
+    history = collections.deque(maxlen=5000)
+    paused = False
+    running = True
+    states = 0
+    while running:
+        clock.tick(target_fps)  # Fixed FPS
+        screen.fill(DARK_BLUE)
+
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_SPACE:
+                    paused = not paused
+
+        keys = pygame.key.get_pressed()
+        rewinding = keys[pygame.K_LEFT] and paused
+
+        if not paused and not rewinding:
+            # Update time (one step per frame)
+            time_manager.update()
+            
+            # Get the fixed time step
+            dt = time_manager.get_time_step()
+
+            # Add new bodies from physics interactions
+            if len(new_bodies_queue) >= 1:
+                bodies.extend(new_bodies_queue)
+                new_bodies_queue.clear()
+            
+            #store states
+            current_state = [(b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel) for b in bodies]
+            history.append(current_state)
+            states+=1
+        
+        if rewinding and history:
+            last_state = history.pop()
+            states-=1
+            for i, b in enumerate(bodies):
+                b.x, b.y, b.color, b.mass, b.radius, b.x_vel, b.y_vel = last_state[i]
+                b.orbit.pop()
+            time_manager.rewind()
+
+        # Update and draw bodies
+        for body in bodies[:]:  # Use slice to avoid modification during iteration
+            if not paused and not rewinding:
+                if not body.exists:
+                    delete_body(body, bodies)
+                else:
+                    body.update_position(bodies, dt)
+            
+            renderer.draw_body(body)
+
+        # Draw simulation info
+        renderer.draw_simulation_info(time_manager, collision_count, states)
+        if rewinding:
+            renderer.rewinding()
+        elif paused:
+            renderer.paused()
+
+        pygame.display.update()
+
+    # Cleanup
+    pygame.quit()
+    
+    # Print final masses
+    print(f'\nSimulation ended after {time_manager.get_formatted_time()}')
+    for i, body in enumerate(bodies, 1):
+        if body.exists:
+            print(f'Body {i} has mass of {body.mass}')
+
+if __name__ == "__main__":
+    main()
